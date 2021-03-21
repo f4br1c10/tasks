@@ -49,7 +49,7 @@ export default class TaskList extends Component {
             const maxDate = moment().format('YYYY-MM-DD 23:59:59')
             const res = await axios.get(`${server}/tasks?date=${maxDate}`)
             this.setState({ tasks: res.data }, this.filterTasks)
-        } catch(e) {
+        } catch (e) {
             showError(e)
         }
     }
@@ -73,40 +73,19 @@ export default class TaskList extends Component {
         }))
     }
 
-    toggleTask = async taskId => {
-        try {
-            await axios.put(`${server}/tasks/${taskId}/toggle`)
-            this.loadTasks()
-        } catch(e) {
-            showError(e)
-        }
+    toggleTask = taskId => {
+        
     }
 
-    addTask = async newTask => {
+    addTask = newTask => {
         if(!newTask.desc || !newTask.desc.trim()) {
             Alert.alert('Dados Inválidos', 'Descrição não informada!')
-            return 
-        }
-
-        try {
-            await axios.post(`${server}/tasks`, {
-               desc: newTask.desc,
-               estimateAt: newTask.date 
-            })
-
-            this.setState({ showAddTask: false }, this.loadTasks)
-        } catch(e) {
-            showError(e)
+            return
         }
     }
 
-    deleteTask = async taskId => {
-        try {
-            await axios.delete(`${server}/tasks/${taskId}`)
-            this.loadTasks()
-        } catch(e) {
-            showError(e)
-        }
+    deleteTask = taskId => {
+        
     }
 
     render() {
