@@ -73,19 +73,41 @@ export default class TaskList extends Component {
         }))
     }
 
-    toggleTask = taskId => {
-        
+    toggleTask = async taskId => {
+        try {
+            await axios.put(`${server}/tasks/${taskId}/Toggle`)
+            this.loadTasks()
+        } catch (e) {
+            showError(e)
+        }
     }
 
-    addTask = newTask => {
+    addTask = async newTask => {
         if(!newTask.desc || !newTask.desc.trim()) {
             Alert.alert('Dados Inválidos', 'Descrição não informada!')
             return
         }
+
+        try {
+            await axios.post(`${server}/tasks`, {
+                desc: newTask.desc,
+                estimateAt: newTask.date
+            })
+            
+            this.setState({ showAddTask: false }, this.loadTasks)
+        } catch (e) {
+            showError(e)
+        }
+
     }
 
-    deleteTask = taskId => {
-        
+    deleteTask = async taskId => {
+        try {
+            await axios.delete(`${server}/tasks/${taskId}`)
+            this.loadTasks()
+        } catch (e) {
+            showError(e)
+        }
     }
 
     render() {
