@@ -163,7 +163,10 @@ export default class TaskList extends Component {
                         keyExtractor={item => `${item.id}`}
                         renderItem={({item}) => <Task {...item} onToggleTask={this.toggleTask} onDelete={this.deleteTask} />} />
                 </View>
-                <TouchableOpacity style={[styles.addButton, {backgroundColor: this.getColor()}]} 
+                <TouchableOpacity style={[
+                        styles.addButton, 
+                        { backgroundColor: this.getColor()
+                    }]} 
                     activeOpacity={0.7}
                     onPress={() => this.setState({ showAddTask: true })}>
                     <Icon name="plus" size={20}
@@ -215,7 +218,6 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
         borderRadius: 25,
-        backgroundColor: commonStyles.colors.today,
         justifyContent: 'center',
         alignItems: 'center'
     }
